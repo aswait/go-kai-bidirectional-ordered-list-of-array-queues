@@ -1,5 +1,8 @@
 package main
 
-func main() {
+import "go-kai/run"
 
+func main() {
+	app := run.NewApp()
+	app.Run()
 }
