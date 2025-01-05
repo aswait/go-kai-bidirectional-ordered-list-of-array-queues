@@ -1,27 +1,47 @@
 package ui
 
 import (
+	"image/color"
+
 	"fyne.io/fyne/v2"
+	"fyne.io/fyne/v2/canvas"
 	"fyne.io/fyne/v2/container"
 	"fyne.io/fyne/v2/widget"
 )
 
 // ShowStartScreen отображает начальный экран с вводом названия города
 func ShowStartScreen(window fyne.Window, onSubmit func(cityName string)) {
+	// Заголовок
+	label := canvas.NewText("Введите название города чтобы продолжить", color.White)
+	label.TextSize = 20
+	label.Alignment = fyne.TextAlignCenter
+
 	// Поле ввода
-	entry := widget.NewEntry()
-	entry.SetPlaceHolder("Введите название города")
+	entry := EntryBlock("Название города")
 
 	// Кнопка подтверждения
-	submitButton := widget.NewButton("Подтвердить", func() {
+	submitButton := widget.NewButton("Готово", func() {
 		onSubmit(entry.Text) // Передаём введённое название города
 	})
+	submitButton.Importance = widget.SuccessImportance
 
-	// Размещение элементов на экране
-	content := container.NewVBox(
-		widget.NewLabel("Введите название города:"),
+	// Контейнер нижних кнопок
+	bottomButtons := container.NewCenter(
+		container.NewHBox(submitButton),
+	)
+
+	// Контейнер ввода
+	entryContainer := container.NewVBox(
+		canvas.NewText("", color.Black),
 		entry,
-		submitButton,
+	)
+
+	content := container.NewBorder(
+		label,         // Верхний
+		bottomButtons, // Нижний
+		nil,           // Левый
+		nil,           // Правый
+		entryContainer,
 	)
 
 	// Устанавливаем содержимое окна

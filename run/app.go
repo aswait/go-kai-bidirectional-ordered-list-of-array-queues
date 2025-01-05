@@ -10,13 +10,16 @@ import (
 	"fyne.io/fyne/v2/dialog"
 )
 
+// Структура приложения
 type App struct {
 }
 
+// Конструктор объекта App
 func NewApp() *App {
 	return &App{}
 }
 
+// Метод запуска приложения
 func (a *App) Run() {
 	myApp := app.New()
 	myWindow := myApp.NewWindow("Структура города")
@@ -34,6 +37,6 @@ func (a *App) Run() {
 		ui.ShowMainScreen(myWindow, currentCity)
 	})
 
-	myWindow.Resize(fyne.NewSize(400, 200))
+	myWindow.Resize(fyne.NewSize(800, 400))
 	myWindow.ShowAndRun()
 }
